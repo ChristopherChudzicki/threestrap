@@ -1,5 +1,5 @@
 THREE.Binder = {
-  bind: function (context, globals) {
+  bindZ: function (context, globals) {
     return function (key, object) {
       // Prepare object
       if (!object.__binds) {
@@ -56,7 +56,7 @@ THREE.Binder = {
     };
   },
 
-  unbind: function () {
+  unbindZ: function () {
     return function (object) {
       // Remove all binds belonging to object
       if (object.__binds) {

@@ -1,36 +1,35 @@
 THREE.Bootstrap.registerPlugin('bind', {
-
   install: function (three) {
     var globals = {
-      'three': three,
-      'window': window,
+      three: three,
+      window: window,
     };
 
-    three.bind = THREE.Binder.bind(three, globals);
-    three.unbind = THREE.Binder.unbind(three);
+    three.bindZ = THREE.Binder.bindZ(three, globals);
+    three.unbindZ = THREE.Binder.unbindZ(three);
 
-    three.bind('install:bind', this);
-    three.bind('uninstall:unbind', this);
+    three.bindZ('install:bind', this);
+    three.bindZ('uninstall:unbind', this);
   },
 
   uninstall: function (three) {
-    three.unbind(this);
+    three.unbindZ(this);
 
-    delete three.bind;
-    delete three.unbind;
+    delete three.bindZ;
+    delete three.unbindZ;
   },
 
   bind: function (event, three) {
     var plugin = event.plugin;
     var listen = plugin.listen;
 
-    listen && listen.forEach(function (key) {
-      three.bind(key, plugin);
-    });
+    listen &&
+      listen.forEach(function (key) {
+        three.bindZ(key, plugin);
+      });
   },
 
   unbind: function (event, three) {
-    three.unbind(event.plugin);
+    three.unbindZ(event.plugin);
   },
-
 });

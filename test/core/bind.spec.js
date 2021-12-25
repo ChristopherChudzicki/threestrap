@@ -1,7 +1,5 @@
-describe("bind", function () {
-
-  it("binds events", function () {
-
+describe('bind', function () {
+  it('binds events', function () {
     var ready = false;
     var foo = false;
     var wtf = false;
@@ -35,13 +33,13 @@ describe("bind", function () {
     THREE.Bootstrap.registerPlugin('mockb', spec);
 
     var options = {
-      plugins: ['bind','mockb'],
+      plugins: ['bind', 'mockb'],
     };
 
     var three = new THREE.Bootstrap(options);
 
-    expect(three.bind).toBeTruthy();
-    expect(three.unbind).toBeTruthy();
+    expect(three.bindZ).toBeTruthy();
+    expect(three.unbindZ).toBeTruthy();
 
     three.plugins.mockb.trigger({ type: 'foo' });
     object.trigger({ type: 'wtf' });
@@ -56,11 +54,9 @@ describe("bind", function () {
     expect(three.unbind).toBeFalsy();
 
     THREE.Bootstrap.unregisterPlugin('mockb', spec);
-
   });
 
-  it("fires ready events for hot install", function () {
-
+  it('fires ready events for hot install', function () {
     var ready = false;
     var api;
 
@@ -94,7 +90,5 @@ describe("bind", function () {
     three.destroy();
 
     THREE.Bootstrap.unregisterPlugin('mockc', spec);
-
   });
-
 });
