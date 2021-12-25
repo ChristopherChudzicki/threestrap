@@ -42,13 +42,7 @@ THREE.Binder = {
         };
 
         // Polyfill for both styles of event listener adders
-        THREE.Binder._polyfill(
-          target,
-          ['addEventListener', 'on'],
-          function (method) {
-            target[method](name, callback);
-          },
-        );
+        target.addEventListener(name, callback);
 
         // Store bind for removal later
         var bind = { target: target, name: name, callback: callback };
@@ -69,13 +63,7 @@ THREE.Binder = {
         object.__binds.forEach(
           function (bind) {
             // Polyfill for both styles of event listener removers
-            THREE.Binder._polyfill(
-              bind.target,
-              ['removeEventListener', 'off'],
-              function (method) {
-                bind.target[method](bind.name, bind.callback);
-              },
-            );
+            bind.target.removeEventListener(bind.name, bind.callback);
           }.bind(this),
         );
 
@@ -119,9 +107,5 @@ THREE.Binder = {
         listeners[i].call(this, event, this);
       }
     }
-  },
-
-  _polyfill: function (object, methods, callback) {
-    if (methods.length) callback(methods[0]);
   },
 };
