@@ -122,9 +122,6 @@ THREE.Binder = {
   },
 
   _polyfill: function (object, methods, callback) {
-    methods.map(function (method) {
-      return object.method;
-    });
     if (methods.length) callback(methods[0]);
   },
 };
