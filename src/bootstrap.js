@@ -1,3 +1,4 @@
+import Plugin from './plugin';
 THREE.Bootstrap = function (options) {
   if (options) {
     var args = [].slice.apply(arguments);
@@ -5,7 +6,7 @@ THREE.Bootstrap = function (options) {
 
     // (element, ...)
     if (args[0] instanceof Node) {
-      node = args[0];
+      const node = args[0];
       args = args.slice(1);
 
       options.element = node;
@@ -145,7 +146,7 @@ THREE.Bootstrap.prototype = {
 
     // Install in order
     _.each(plugins, (plugin) => {
-      return this.__install.call(this, plugin);
+      return this.__install(plugin);
     });
 
     // Fire off ready event
@@ -173,14 +174,17 @@ THREE.Bootstrap.prototype = {
       throw "[three.install] Cannot install. '" + name + "' is not registered.";
     if (this.plugins[name])
       return console.warn('[three.install] ' + name + ' is already installed.');
-
     // Construct
-    var Plugin = ctor;
-    var plugin = new Plugin(this.__options[name] || {}, name);
+    var PluginConstructor = ctor;
+
+    const plugin =
+      PluginConstructor.prototype instanceof Plugin
+        ? new PluginConstructor(this, this.__options[name] || {})
+        : new PluginConstructor(this.__options[name] || {}, name);
     this.plugins[name] = plugin;
 
     // Install
-    flag = plugin.install(this);
+    const flag = plugin.install(this);
     this.__installed.push(plugin);
 
     // Then notify
@@ -192,7 +196,7 @@ THREE.Bootstrap.prototype = {
 
   __uninstall: function (name, alias) {
     // Sanity check
-    plugin = _.isString(name) ? this.plugins[name] : name;
+    const plugin = _.isString(name) ? this.plugins[name] : name;
     if (!plugin)
       return console.warn('[three.uninstall] ' + name + "' is not installed.");
     name = plugin.__name;

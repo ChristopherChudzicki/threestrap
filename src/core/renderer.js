@@ -1,4 +1,4 @@
-THREE.Bootstrap.registerPlugin('renderer', {
+THREE.Bootstrap.registerPluginOld('renderer', {
   defaults: {
     klass: THREE.WebGLRenderer,
     parameters: {

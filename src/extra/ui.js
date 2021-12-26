@@ -1,4 +1,4 @@
-THREE.Bootstrap.registerPlugin('ui', {
+THREE.Bootstrap.registerPluginOld('ui', {
   defaults: {
     theme: 'white',
     style:

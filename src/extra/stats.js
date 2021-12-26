@@ -1,10 +1,8 @@
-THREE.Bootstrap.registerPlugin('stats', {
-
+THREE.Bootstrap.registerPluginOld('stats', {
   listen: ['pre', 'post'],
 
   install: function (three) {
-
-    var stats = this.stats = new THREE.Stats();
+    var stats = (this.stats = new THREE.Stats());
     var style = stats.domElement.style;
 
     style.position = 'absolute';
@@ -27,5 +25,4 @@ THREE.Bootstrap.registerPlugin('stats', {
   post: function (event, three) {
     this.stats.end();
   },
-
 });

@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import './globals.js';
 import './binder.js';
 import './api.js';
 import './bootstrap.js';
-import './plugin.js';
+import './pluginOld.js';
 import './aliases.js';
 import './core/fallback.js';
 import './core/renderer.js';
 import './core/bind.js';
-import './core/size.js';
+import Size from './core/size';
 import './core/fill.js';
 import './core/loop.js';
 import './core/time.js';
@@ -29,3 +30,6 @@ import './extra/cursor.js';
 import './extra/fullscreen.js';
 import './extra/vr.js';
 import './extra/ui.js';
+
+// @ts-ignore
+THREE.Bootstrap.registerPlugin('size', Size);

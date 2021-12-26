@@ -1,4 +1,4 @@
-THREE.Bootstrap.registerPlugin('fallback', {
+THREE.Bootstrap.registerPluginOld('fallback', {
   defaults: {
     force: false,
     fill: true,

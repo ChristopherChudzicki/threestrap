@@ -30,7 +30,7 @@ describe('bind', function () {
       },
     };
 
-    THREE.Bootstrap.registerPlugin('mockb', spec);
+    THREE.Bootstrap.registerPluginOld('mockb', spec);
 
     var options = {
       plugins: ['bind', 'mockb'],
@@ -53,7 +53,7 @@ describe('bind', function () {
     expect(three.bind).toBeFalsy();
     expect(three.unbind).toBeFalsy();
 
-    THREE.Bootstrap.unregisterPlugin('mockb', spec);
+    THREE.Bootstrap.unregisterPluginOld('mockb', spec);
   });
 
   it('fires ready events for hot install', function () {
@@ -73,7 +73,7 @@ describe('bind', function () {
       },
     };
 
-    THREE.Bootstrap.registerPlugin('mockc', spec);
+    THREE.Bootstrap.registerPluginOld('mockc', spec);
 
     var options = {
       plugins: ['bind'],
@@ -89,6 +89,6 @@ describe('bind', function () {
 
     three.destroy();
 
-    THREE.Bootstrap.unregisterPlugin('mockc', spec);
+    THREE.Bootstrap.unregisterPluginOld('mockc', spec);
   });
 });

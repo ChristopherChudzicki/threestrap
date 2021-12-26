@@ -1,5 +1,4 @@
-THREE.Bootstrap.registerPlugin('fill', {
-
+THREE.Bootstrap.registerPluginOld('fill', {
   defaults: {
     block: true,
     body: true,
@@ -7,7 +6,6 @@ THREE.Bootstrap.registerPlugin('fill', {
   },
 
   install: function (three) {
-
     function is(element) {
       var h = element.style.height;
       return h == 'auto' || h == '';
@@ -22,12 +20,13 @@ THREE.Bootstrap.registerPlugin('fill', {
 
     if (this.options.body && three.element == document.body) {
       // Fix body height if we're naked
-      this.applied =
-        [ three.element, document.documentElement ].filter(is).map(set);
+      this.applied = [three.element, document.documentElement]
+        .filter(is)
+        .map(set);
     }
 
     if (this.options.block && three.canvas) {
-      three.canvas.style.display = 'block'
+      three.canvas.style.display = 'block';
       this.block = true;
     }
 
@@ -38,7 +37,6 @@ THREE.Bootstrap.registerPlugin('fill', {
         this.layout = true;
       }
     }
-
   },
 
   uninstall: function (three) {
@@ -69,5 +67,4 @@ THREE.Bootstrap.registerPlugin('fill', {
     this.uninstall(three);
     this.install(three);
   },
-
 });

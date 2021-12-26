@@ -1,4 +1,4 @@
-THREE.Bootstrap.registerPlugin('bind', {
+THREE.Bootstrap.registerPluginOld('bind', {
   install: function (three) {
     var globals = {
       three: three,

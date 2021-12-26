@@ -4,13 +4,13 @@ describe('plugin', function () {
 
     expect(THREE.Bootstrap.Plugins.mockp1).toBeFalsy();
 
-    THREE.Bootstrap.registerPlugin('mockp1', spec);
+    THREE.Bootstrap.registerPluginOld('mockp1', spec);
 
     expect(new THREE.Bootstrap.Plugins.mockp1()).toBeInstanceOf(
       THREE.Bootstrap.Plugin,
     );
 
-    THREE.Bootstrap.unregisterPlugin('mockp1', spec);
+    THREE.Bootstrap.unregisterPluginOld('mockp1', spec);
 
     expect(THREE.Bootstrap.Plugins.mockp1).toBeFalsy();
   });
@@ -28,7 +28,7 @@ describe('plugin', function () {
       },
     };
 
-    THREE.Bootstrap.registerPlugin('mockp2', spec);
+    THREE.Bootstrap.registerPluginOld('mockp2', spec);
 
     const options = {
       init: false,
@@ -47,6 +47,6 @@ describe('plugin', function () {
 
     three.destroy();
 
-    THREE.Bootstrap.unregisterPlugin('mockp2', spec);
+    THREE.Bootstrap.unregisterPluginOld('mockp2', spec);
   });
 });

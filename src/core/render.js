@@ -1,5 +1,4 @@
-THREE.Bootstrap.registerPlugin('render', {
-
+THREE.Bootstrap.registerPluginOld('render', {
   listen: ['render'],
 
   render: function (event, three) {
@@ -7,5 +6,4 @@ THREE.Bootstrap.registerPlugin('render', {
       three.renderer.render(three.scene, three.camera);
     }
   },
-
 });
