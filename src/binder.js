@@ -104,7 +104,7 @@ THREE.Binder = {
       event.target = this;
       for (var i = 0; i < length; i++) {
         // add original target as parameter for convenience
-        listeners[i].call(this, event, this);
+        listeners[i].call(this, event);
       }
     }
   },
