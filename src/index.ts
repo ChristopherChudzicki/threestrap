@@ -10,7 +10,7 @@ import './core/renderer.js';
 import './core/bind.js';
 import Size from './core/size';
 import './core/fill.js';
-import './core/loop.js';
+import Loop from './core/loop';
 import './core/time.js';
 import './core/scene.js';
 import './core/camera.js';
@@ -33,3 +33,5 @@ import './extra/ui.js';
 
 // @ts-ignore
 THREE.Bootstrap.registerPlugin('size', Size);
+// @ts-ignore
+THREE.Bootstrap.registerPlugin('loop', Loop);
