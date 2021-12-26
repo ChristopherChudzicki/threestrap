@@ -1,4 +1,4 @@
-THREE.Binder = {
+const Binder = {
   bindZ: function (context, globals) {
     return function (key, object) {
       // Prepare object
@@ -109,3 +109,7 @@ THREE.Binder = {
     }
   },
 };
+
+THREE.Binder = Binder;
+
+export default Binder;
