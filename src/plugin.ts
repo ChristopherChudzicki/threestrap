@@ -14,6 +14,21 @@ type ListenerConfig = {
   eventName: string;
 };
 
+export type ChangeEvent<T> = {
+  type: 'change';
+  options: T;
+  changes: Partial<T>;
+};
+
+export const makeChangeEvent = <T>(
+  options: T,
+  changes: Partial<T>,
+): ChangeEvent<T> => ({
+  type: 'change' as const,
+  options,
+  changes,
+});
+
 export default abstract class Plugin<T> extends EventDispatcher {
   options: T;
 

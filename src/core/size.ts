@@ -20,6 +20,16 @@ const DEFAULT_OPTIONS: SizeOptions = {
   devicePixelRatio: true,
 };
 
+export type ResizeEvent = {
+  type: 'resize';
+  renderWidth: number;
+  renderHeight: number;
+  viewWidth: number;
+  viewHeight: number;
+  aspect: number;
+  pixelRatio: number;
+};
+
 export default class Size extends Plugin<SizeOptions> {
   api = {
     renderWidth: 0,
@@ -155,9 +165,10 @@ export default class Size extends Plugin<SizeOptions> {
       ...newValues,
     };
 
-    three.trigger({
+    const resizeEvent: ResizeEvent = {
       type: 'resize',
       ...newValues,
-    });
+    };
+    three.trigger(resizeEvent);
   }
 }
