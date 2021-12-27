@@ -1,16 +1,14 @@
-import { EventDispatcher } from 'three';
+import { EventEmitter } from 'events';
 
-interface EventTarget {
-  addEventListener: (eventName: string, callback: (event: any) => void) => void;
-  removeEventListener: (
-    eventName: string,
-    callback: (event: any) => void,
-  ) => void;
+type Listener = (event: any) => void;
+interface EventListener {
+  addEventListener: (eventName: string, listener: Listener) => void;
+  removeEventListener: (eventName: string, listener: Listener) => void;
 }
 
 type ListenerConfig = {
   callback: (event: any) => void;
-  target: EventTarget;
+  target: EventListener;
   eventName: string;
 };
 
@@ -29,7 +27,7 @@ export const makeChangeEvent = <T>(
   changes,
 });
 
-export default abstract class Plugin<T> extends EventDispatcher {
+export default abstract class Plugin<T> implements EventListener {
   options: T;
 
   three: any;
@@ -38,13 +36,15 @@ export default abstract class Plugin<T> extends EventDispatcher {
 
   listenerRemovers?: (() => void)[];
 
+  eventEmitter: EventEmitter;
+
   abstract api: {
     set(options: Partial<T>): void;
     get(): T;
   };
 
   constructor(three: any, options: Partial<T>, defaults: T) {
-    super();
+    this.eventEmitter = new EventEmitter();
     this.three = three;
     this.options = { ...defaults, ...options };
     this.set = this.set.bind(this);
@@ -55,6 +55,14 @@ export default abstract class Plugin<T> extends EventDispatcher {
 
   uninstall(): void {
     this.unbindListeners();
+  }
+
+  addEventListener(eventName: string, listener: Listener): void {
+    this.eventEmitter.addListener(eventName, listener);
+  }
+
+  removeEventListener(eventName: string, listener: Listener): void {
+    this.eventEmitter.removeListener(eventName, listener);
   }
 
   bindListeners(): void {
@@ -89,7 +97,8 @@ export default abstract class Plugin<T> extends EventDispatcher {
     this.options = { ...opts, ...changes };
 
     // Notify
-    this.dispatchEvent({ type: 'change', options, changes });
+    const event = { type: 'change', options, changes };
+    this.eventEmitter.emit(event.type, event);
   }
 
   get(): T {
