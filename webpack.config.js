@@ -44,6 +44,9 @@ const nodeConfig = {
 const browserConfig = {
   entry: './src/index.ts',
   target: 'web',
+  externals: {
+    three: 'THREE',
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     library: {
