@@ -15,7 +15,7 @@ import Time from './core/time';
 import './core/scene.js';
 import Camera from './core/camera';
 import './core/render.js';
-import './core/warmup.js';
+import Warmup from './core/warmup';
 
 import './vendor/stats.min.js';
 import './vendor/controls/DeviceOrientationControls.js';
@@ -39,3 +39,5 @@ THREE.Bootstrap.registerPlugin('loop', Loop);
 THREE.Bootstrap.registerPlugin('camera', Camera);
 // @ts-ignore
 THREE.Bootstrap.registerPlugin('time', Time);
+// @ts-ignore
+THREE.Bootstrap.registerPlugin('warmup', Warmup);

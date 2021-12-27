@@ -117,6 +117,7 @@ export default class Time extends Plugin<TimeOptions> {
   }
 
   uninstall(): void {
+    super.uninstall();
     delete this.three.Time;
   }
 }

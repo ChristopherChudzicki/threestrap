@@ -72,6 +72,7 @@ export default class Camera extends Plugin<CameraOptions> {
   }
 
   uninstall(): void {
+    super.uninstall();
     delete this.three.Camera;
     delete this.three.camera;
   }

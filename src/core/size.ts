@@ -64,8 +64,8 @@ export default class Size extends Plugin<SizeOptions> {
   }
 
   uninstall(): void {
-    const { three } = this;
-    delete three.Size;
+    super.uninstall();
+    delete this.three.Size;
   }
 
   queue(): void {

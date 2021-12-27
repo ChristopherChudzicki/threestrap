@@ -44,7 +44,9 @@ export default class Loop extends Plugin<LoopOptions> {
   }
 
   uninstall(): void {
+    super.uninstall();
     this.stop();
+    delete this.three.Camera;
   }
 
   ready(): void {
