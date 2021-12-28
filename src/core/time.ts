@@ -64,9 +64,12 @@ export default class Time extends Plugin<TimeOptions> {
     this.timeStart = 0;
   }
 
-  install(): void {
-    this.bindAllListeners();
+  onInstall(): void {
     this.three.Time = this.api;
+  }
+
+  onUninstall(): void {
+    delete this.three.Time;
   }
 
   tick(): void {
@@ -114,10 +117,5 @@ export default class Time extends Plugin<TimeOptions> {
     this.last = now;
     this.clock = clock;
     this.time = time;
-  }
-
-  uninstall(): void {
-    super.uninstall();
-    delete this.three.Time;
   }
 }

@@ -54,11 +54,19 @@ export default abstract class Plugin<T> implements EventListener {
     this.get = this.get.bind(this);
   }
 
-  abstract install(): void;
+  install(): void {
+    this.bindAllListeners();
+    this.onInstall();
+  }
 
   uninstall(): void {
     this.unbindAllListeners();
+    this.onUninstall();
   }
+
+  abstract onInstall(): void;
+
+  abstract onUninstall(): void;
 
   addEventListener(type: string, listener: Listener): void {
     this.eventEmitter.addListener(type, listener);

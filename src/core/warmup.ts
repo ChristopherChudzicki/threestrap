@@ -38,9 +38,12 @@ export default class Warmup extends Plugin<WarmupOptions> {
     super(three, options, DEFAULT_WARMUP_OPTIONS);
   }
 
-  install(): void {
-    this.bindAllListeners();
+  onInstall(): void {
     this.three.Warmup = this.api;
+  }
+
+  onUninstall(): void {
+    delete this.three.Warmup;
   }
 
   ready(): void {

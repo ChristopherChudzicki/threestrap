@@ -68,8 +68,7 @@ export default class Camera extends Plugin<CameraOptions> {
     this.aspect = 1;
   }
 
-  install(): void {
-    this.bindAllListeners();
+  onInstall(): void {
     this.three.Camera = this.api;
     this.three.camera = null;
 
@@ -77,8 +76,7 @@ export default class Camera extends Plugin<CameraOptions> {
     this.change(changeEvent);
   }
 
-  uninstall(): void {
-    super.uninstall();
+  onUninstall(): void {
     delete this.three.Camera;
     delete this.three.camera;
   }

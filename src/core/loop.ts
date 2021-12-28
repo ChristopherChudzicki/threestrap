@@ -57,15 +57,13 @@ export default class Loop extends Plugin<LoopOptions> {
     super(three, options, DEFAULT_LOOP_OPTIONS);
   }
 
-  install(): void {
-    this.bindAllListeners();
+  onInstall(): void {
     this.three.Loop = this.api;
   }
 
-  uninstall(): void {
-    super.uninstall();
+  onUninstall(): void {
     this.stop();
-    delete this.three.Camera;
+    delete this.three.Loop;
   }
 
   ready(): void {
