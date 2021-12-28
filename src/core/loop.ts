@@ -28,10 +28,29 @@ export default class Loop extends Plugin<LoopOptions> {
   frame = 0;
 
   listeners = [
-    { eventName: 'ready', target: this.three, callback: this.ready },
-    { eventName: 'resize', target: window, callback: this.reset },
-    { eventName: 'dirty', target: this.three, callback: this.dirty },
-    { eventName: 'post', target: this.three, callback: this.post },
+    {
+      type: 'resize',
+      target: window,
+      listener: this.reset,
+    },
+    {
+      type: 'dirty',
+      target: this.three,
+      listener: this.dirty,
+    },
+    {
+      type: 'post',
+      target: this.three,
+      listener: this.post,
+    },
+  ];
+
+  listenOnce = [
+    {
+      type: 'ready',
+      target: this.three,
+      listener: this.ready,
+    },
   ];
 
   constructor(three: any, options: Partial<LoopOptions>) {
@@ -39,7 +58,7 @@ export default class Loop extends Plugin<LoopOptions> {
   }
 
   install(): void {
-    this.bindListeners();
+    this.bindAllListeners();
     this.three.Loop = this.api;
   }
 

@@ -15,11 +15,11 @@ const DEFAULT_TIME_OPTIONS: TimeOptions = {
 const getCurrentTime = () => new Date().getTime() / 1000;
 
 export default class Time extends Plugin<TimeOptions> {
-  listeners = [
+  listen = [
     {
-      eventName: 'pre',
+      type: 'pre',
       target: this.three,
-      callback: this.tick,
+      listener: this.tick,
     },
   ];
 
@@ -65,7 +65,7 @@ export default class Time extends Plugin<TimeOptions> {
   }
 
   install(): void {
-    this.bindListeners();
+    this.bindAllListeners();
     this.three.Time = this.api;
   }
 

@@ -43,11 +43,17 @@ const DEFAULT_CAMERA_OPTIONS: CameraOptions = {
 const THREE = window.THREE as any;
 
 export default class Camera extends Plugin<CameraOptions> {
-  // listen: ['resize', 'this.change'],
-
-  listeners = [
-    { eventName: 'resize', target: this.three, callback: this.resize },
-    { eventName: 'change', target: this as Camera, callback: this.change },
+  listen = [
+    {
+      type: 'resize',
+      target: this.three,
+      listener: this.resize,
+    },
+    {
+      type: 'change',
+      target: this as Camera,
+      listener: this.change,
+    },
   ];
 
   api = {
@@ -63,7 +69,7 @@ export default class Camera extends Plugin<CameraOptions> {
   }
 
   install(): void {
-    this.bindListeners();
+    this.bindAllListeners();
     this.three.Camera = this.api;
     this.three.camera = null;
 

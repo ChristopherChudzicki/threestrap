@@ -40,12 +40,35 @@ export default class Size extends Plugin<SizeOptions> {
     set: this.set,
   };
 
-  listeners = [
-    { target: window, eventName: 'resize', callback: this.queue },
-    { target: this.three.element, eventName: 'resize', callback: this.queue },
-    { target: this, eventName: 'change', callback: this.queue },
-    { target: this.three, eventName: 'ready', callback: this.resize },
-    { target: this.three, eventName: 'pre', callback: this.pre },
+  listen = [
+    {
+      target: window,
+      type: 'resize',
+      listener: this.queue,
+    },
+    {
+      target: this.three.element,
+      type: 'resize',
+      listener: this.queue,
+    },
+    {
+      target: this,
+      type: 'change',
+      listener: this.queue,
+    },
+    {
+      target: this.three,
+      type: 'pre',
+      listener: this.pre,
+    },
+  ];
+
+  listenOnce = [
+    {
+      target: this.three,
+      type: 'ready',
+      listener: this.resize,
+    },
   ];
 
   resized: boolean;
@@ -56,7 +79,7 @@ export default class Size extends Plugin<SizeOptions> {
   }
 
   install(): void {
-    this.bindListeners();
+    this.bindAllListeners();
 
     this.three.Size = this.api;
 

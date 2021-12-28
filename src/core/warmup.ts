@@ -14,10 +14,20 @@ export default class Warmup extends Plugin<WarmupOptions> {
     set: this.set,
   };
 
-  // listen: ['ready', 'post'],
-  listeners = [
-    { target: this.three, eventName: 'ready', callback: this.ready },
-    { target: this.three, eventName: 'post', callback: this.post },
+  listen = [
+    {
+      target: this.three,
+      type: 'post',
+      listener: this.post,
+    },
+  ];
+
+  listenOnce = [
+    {
+      target: this.three,
+      type: 'ready',
+      listener: this.ready,
+    },
   ];
 
   frame = 0;
@@ -29,7 +39,7 @@ export default class Warmup extends Plugin<WarmupOptions> {
   }
 
   install(): void {
-    this.bindListeners();
+    this.bindAllListeners();
     this.three.Warmup = this.api;
   }
 

@@ -2,14 +2,15 @@ import { EventEmitter } from 'events';
 
 type Listener = (event: any) => void;
 interface EventListener {
+  // In practice, this could be a js EventTarget or a node EventEmitter
   addEventListener: (eventName: string, listener: Listener) => void;
   removeEventListener: (eventName: string, listener: Listener) => void;
 }
 
 type ListenerConfig = {
-  callback: (event: any) => void;
+  listener: (event: any) => void;
   target: EventListener;
-  eventName: string;
+  type: string;
 };
 
 export type ChangeEvent<T> = {
@@ -32,7 +33,9 @@ export default abstract class Plugin<T> implements EventListener {
 
   three: any;
 
-  listeners: ListenerConfig[] = [];
+  listen: ListenerConfig[] = [];
+
+  listenOnce: ListenerConfig[] = [];
 
   listenerRemovers?: (() => void)[];
 
@@ -54,30 +57,40 @@ export default abstract class Plugin<T> implements EventListener {
   abstract install(): void;
 
   uninstall(): void {
-    this.unbindListeners();
+    this.unbindAllListeners();
   }
 
-  addEventListener(eventName: string, listener: Listener): void {
-    this.eventEmitter.addListener(eventName, listener);
+  addEventListener(type: string, listener: Listener): void {
+    this.eventEmitter.addListener(type, listener);
   }
 
-  removeEventListener(eventName: string, listener: Listener): void {
-    this.eventEmitter.removeListener(eventName, listener);
+  removeEventListener(type: string, listener: Listener): void {
+    this.eventEmitter.removeListener(type, listener);
   }
 
-  bindListeners(): void {
-    this.listenerRemovers = this.listeners.map(
-      ({ target, callback, eventName }) => {
-        const boundCb = callback.bind(this);
-        target.addEventListener(eventName, boundCb);
-        return () => {
-          target.removeEventListener(eventName, boundCb);
-        };
-      },
-    );
+  bindAllListeners(): void {
+    const removers = this.listen.map(({ target, listener, type }) => {
+      const boundCb = listener.bind(this);
+      target.addEventListener(type, boundCb);
+      return () => {
+        target.removeEventListener(type, boundCb);
+      };
+    });
+    const onceRemovers = this.listenOnce.map(({ target, listener, type }) => {
+      const boundListener = listener.bind(this);
+      const listensOnce = (event: any) => {
+        target.removeEventListener(type, listensOnce);
+        boundListener(event);
+      };
+      target.addEventListener(type, listensOnce);
+      return () => {
+        target.removeEventListener(type, listensOnce);
+      };
+    });
+    this.listenerRemovers = [...removers, ...onceRemovers];
   }
 
-  unbindListeners(): void {
+  unbindAllListeners(): void {
     if (this.listenerRemovers === undefined) return;
     this.listenerRemovers.forEach((removeListener) => removeListener());
   }
