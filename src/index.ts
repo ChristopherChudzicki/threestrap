@@ -12,7 +12,7 @@ import Size from './core/size';
 import './core/fill.js';
 import Loop from './core/loop';
 import Time from './core/time';
-import './core/scene.js';
+import Scene from './core/scene';
 import Camera from './core/camera';
 import './core/render.js';
 import Warmup from './core/warmup';
@@ -41,3 +41,5 @@ THREE.Bootstrap.registerPlugin('camera', Camera);
 THREE.Bootstrap.registerPlugin('time', Time);
 // @ts-ignore
 THREE.Bootstrap.registerPlugin('warmup', Warmup);
+// @ts-ignore
+THREE.Bootstrap.registerPlugin('scene', Scene);
