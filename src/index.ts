@@ -9,7 +9,7 @@ import './core/fallback.js';
 import './core/renderer.js';
 import './core/bind.js';
 import Size from './core/size';
-import './core/fill.js';
+import Fill from './core/fill';
 import Loop from './core/loop';
 import Time from './core/time';
 import Scene from './core/scene';
@@ -43,3 +43,6 @@ THREE.Bootstrap.registerPlugin('time', Time);
 THREE.Bootstrap.registerPlugin('warmup', Warmup);
 // @ts-ignore
 THREE.Bootstrap.registerPlugin('scene', Scene);
+
+// @ts-ignore
+THREE.Bootstrap.registerPlugin('fill', Fill);
