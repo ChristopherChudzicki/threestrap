@@ -54,9 +54,9 @@ export default abstract class Plugin<T> implements EventListener {
     this.get = this.get.bind(this);
   }
 
-  install(): void {
+  install(): boolean {
     this.bindAllListeners();
-    this.onInstall();
+    return this.onInstall();
   }
 
   uninstall(): void {
@@ -64,7 +64,7 @@ export default abstract class Plugin<T> implements EventListener {
     this.onUninstall();
   }
 
-  abstract onInstall(): void;
+  abstract onInstall(): boolean;
 
   abstract onUninstall(): void;
 

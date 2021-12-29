@@ -35,7 +35,7 @@ export default class Fill extends Plugin<FillOptions> {
     super(three, options, DEFAULT_FILL_OPTIONS);
   }
 
-  onInstall(): void {
+  onInstall(): boolean {
     const hasAutoHeight = (element: HTMLElement) => {
       const h = element.style.height;
       return h === 'auto' || h === '';
@@ -67,6 +67,8 @@ export default class Fill extends Plugin<FillOptions> {
         this.layout = true;
       }
     }
+
+    return true;
   }
 
   onUninstall(): void {

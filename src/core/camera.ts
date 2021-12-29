@@ -68,12 +68,13 @@ export default class Camera extends Plugin<CameraOptions> {
     this.aspect = 1;
   }
 
-  onInstall(): void {
+  onInstall(): boolean {
     this.three.Camera = this.api;
     this.three.camera = null;
 
     const changeEvent = makeChangeEvent(this.options, {});
     this.change(changeEvent);
+    return true;
   }
 
   onUninstall(): void {

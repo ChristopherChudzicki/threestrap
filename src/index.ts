@@ -5,7 +5,7 @@ import './api.js';
 import './bootstrap.js';
 import './pluginOld.js';
 import './aliases.js';
-import './core/fallback.js';
+import Fallback from './core/fallback';
 import './core/renderer.js';
 import './core/bind.js';
 import Size from './core/size';
@@ -46,3 +46,6 @@ THREE.Bootstrap.registerPlugin('scene', Scene);
 
 // @ts-ignore
 THREE.Bootstrap.registerPlugin('fill', Fill);
+
+// @ts-ignore
+THREE.Bootstrap.registerPlugin('fallback', Fallback);

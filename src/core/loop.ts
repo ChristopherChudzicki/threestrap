@@ -57,8 +57,9 @@ export default class Loop extends Plugin<LoopOptions> {
     super(three, options, DEFAULT_LOOP_OPTIONS);
   }
 
-  onInstall(): void {
+  onInstall(): boolean {
     this.three.Loop = this.api;
+    return true;
   }
 
   onUninstall(): void {

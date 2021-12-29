@@ -78,10 +78,12 @@ export default class Size extends Plugin<SizeOptions> {
     this.resized = false;
   }
 
-  onInstall(): void {
+  onInstall(): boolean {
     this.three.Size = this.api;
 
     this.resized = false;
+
+    return true;
   }
 
   onUninstall(): void {

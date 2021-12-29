@@ -64,8 +64,9 @@ export default class Time extends Plugin<TimeOptions> {
     this.timeStart = 0;
   }
 
-  onInstall(): void {
+  onInstall(): boolean {
     this.three.Time = this.api;
+    return true;
   }
 
   onUninstall(): void {

@@ -27,7 +27,7 @@ describe('fallback', function () {
     expect(getSpan()).toBeTruthy();
 
     expect(three.renderer).toBeFalsy();
-    expect(three.fallback).toBe(true);
+    expect(three.Fallback.fallback).toBe(true);
 
     three.destroy();
 
@@ -56,7 +56,7 @@ describe('fallback', function () {
 
     var three = new THREE.Bootstrap(options);
 
-    expect(three.fallback).toBe(false);
+    expect(three.Fallback.fallback).toBe(false);
 
     three.destroy();
   });

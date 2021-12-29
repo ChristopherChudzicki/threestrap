@@ -38,8 +38,9 @@ export default class Warmup extends Plugin<WarmupOptions> {
     super(three, options, DEFAULT_WARMUP_OPTIONS);
   }
 
-  onInstall(): void {
+  onInstall(): boolean {
     this.three.Warmup = this.api;
+    return true;
   }
 
   onUninstall(): void {

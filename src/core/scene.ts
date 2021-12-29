@@ -16,9 +16,10 @@ export default class Scene extends Plugin<SceneOptions> {
     super(three, options, DEFAULT_SCENE_OPTIONS);
   }
 
-  onInstall(): void {
+  onInstall(): boolean {
     this.three.scene = new THREE.Scene();
     this.three.Scene = this.api;
+    return true;
   }
 
   onUninstall(): void {
